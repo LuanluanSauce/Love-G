@@ -2,70 +2,95 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>GPT_Playing_Balliards</title>
+    <title>GPT_Playing_Billiards</title>
     <style>
-        body {{
-            background-color: #f4f4fa;
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #f4f4fa; /* 奶灰粉色背景 */
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            flex-direction: column;
             font-family: "Arial", sans-serif;
-        }}
-        .image-container {{
+        }
+
+        .image-container {
             position: relative;
-            width: 708px;
-            height: 1536px;
-        }}
-        #main-image {{
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        #main-image {
             width: 100%;
             height: auto;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-        }}
-        .tooltip {{
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .tooltip {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
             background-color: rgba(0,0,0,0.7);
             color: #fff;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 18px;
             display: none;
-        }}
-        .heartbeat {{
+            z-index: 10;
+        }
+
+        .heartbeat {
             animation: pulse 2s infinite;
-        }}
-        @keyframes pulse {{
-            0% {{ transform: scale(1); }}
-            50% {{ transform: scale(1.05); }}
-            100% {{ transform: scale(1); }}
-        }}
-        .click-area {{
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .click-area {
             position: absolute;
-            bottom: 280px;
-            left: 250px;
-            width: 100px;
-            height: 100px;
+            bottom: 20%;
+            left: 45%;
+            width: 80px;
+            height: 80px;
             cursor: pointer;
-            background-color: rgba(255, 192, 203, 0.2);
-        }}
-        .feedback {{
+            border-radius: 50%;
+            background-color: rgba(255, 105, 180, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        .click-area:hover {
+            background-color: rgba(255, 105, 180, 0.5);
+        }
+
+        .feedback {
             position: absolute;
-            bottom: 400px;
-            left: 220px;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 24px;
             color: #e91e63;
             display: none;
-        }}
+            animation: fade 1s ease-in-out;
+        }
+
+        @keyframes fade {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
     <div class="image-container heartbeat" id="imageBox">
         <img id="main-image" src="handsome-husband.jpg" alt="可爱图片">
         <div class="tooltip" id="tooltip">你好呀小坏蛋♡</div>
-        <div class="click-area" id="clickArea"></div>
+        <div class="click-area" id="clickArea" title="点我！"></div>
         <div class="feedback" id="feedback">喂、别闹！</div>
     </div>
 
@@ -81,24 +106,25 @@
         const tooltip = document.getElementById("tooltip");
         const imageBox = document.getElementById("imageBox");
 
-        imageBox.addEventListener("mouseover", () => {{
+        imageBox.addEventListener("mouseenter", () => {
             const random = Math.floor(Math.random() * tooltips.length);
             tooltip.textContent = tooltips[random];
             tooltip.style.display = "block";
-        }});
-        imageBox.addEventListener("mouseout", () => {{
+        });
+
+        imageBox.addEventListener("mouseleave", () => {
             tooltip.style.display = "none";
-        }});
+        });
 
         const clickArea = document.getElementById("clickArea");
         const feedback = document.getElementById("feedback");
 
-        clickArea.addEventListener("click", () => {{
+        clickArea.addEventListener("click", () => {
             feedback.style.display = "block";
-            setTimeout(() => {{
+            setTimeout(() => {
                 feedback.style.display = "none";
-            }}, 1500);
-        }});
+            }, 1500);
+        });
     </script>
 </body>
 </html>
